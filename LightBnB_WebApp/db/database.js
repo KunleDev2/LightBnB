@@ -33,10 +33,9 @@ const getUserWithEmail = function(email) {
     .then((result) => {
       if (result) {
         return Promise.resolve(result.rows[0]);
-      }
-      else {
+      } else {
         return null;
-      };
+      }
     })
     .catch((err) => {
       console.log(err.message);
@@ -70,15 +69,15 @@ const getUserWithId = function(id) {
  * @return {Promise<{}>} A promise to the user.
  */
 const addUser = function(user) {
-  const get_name = user.name;
-  const get_email = user.email;
-  const get_password = user.password;
+  const getName = user.name;
+  const getEmail = user.email;
+  const getPassword = user.password;
 
   const queryString = `
   INSERT INTO users (name, email, password) VALUES ($1, $2, $3)
   RETURNING *;
   `;
-  const values = [get_name, get_email, get_password];
+  const values = [getName, getEmail, getPassword];
 
   return pool.query(queryString, values)
     .then((result) => {
@@ -139,23 +138,23 @@ const getAllProperties = (options, limit = 10) => {
   if (options.city) {
     initQueryString.push(`%${options.city}%`);
     queryString += `WHERE city LIKE $${initQueryString.length} `;
-  };
+  }
 
   if (options.guest_id) {
     initQueryString.push(`${options.guest_id}`);
     queryString += `AND guest_id = $${initQueryString.length} `;
-  };
+  }
 
   if (options.minimum_price_per_night && options.maximum_price_per_night) {
     initQueryString.push(`${options.minimum_price_per_night * 100}`);
     initQueryString.push(`${options.maximum_price_per_night * 100}`);
     queryString += `AND cost_per_night BETWEEN $${initQueryString.length - 1} AND $${initQueryString.length}`;
-  };
+  }
 
   if (options.minimum_rating) {
     initQueryString.push(`${options.minimum_rating}`);
     queryString += `AND property_reviews.rating >= $${initQueryString.length} `;
-  };
+  }
 
   initQueryString.push(limit);
   queryString += `
