@@ -1,6 +1,6 @@
 # LightBnB Project
 
-LightBnB is an application for home owners to rent out their homes to people on vacation, creating an alternative to hotels and bed and breakfasts.
+LightBnB is an application for home owners to rent out their homes to people on vacation..
 
 ## Final Product
 
